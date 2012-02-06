@@ -52,6 +52,8 @@ public class ButtonsNText extends JPanel implements ActionListener,
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("MMI - Exercise 1");
 		frame.getContentPane().add(new ButtonsNText());
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocation(100, 100);
 		frame.pack();
 		frame.setVisible(true);
 	}
