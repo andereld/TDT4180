@@ -23,12 +23,10 @@ public class ButtonsNText extends JPanel implements ActionListener,
 	private JCheckBox continuousButton;
 
 	public ButtonsNText() {
-		setBackground(Color.white);
-		setPreferredSize(new Dimension(800, 200));
+		setPreferredSize(new Dimension(1024, 100));
 		
-		textLine = new JTextField();
+		textLine = new JTextField(40);
 		textLine.setName("TextLine");
-		textLine.setColumns(80);
 		textLine.addKeyListener(this);
 		
 		upperCaseButton = new JToggleButton("Upper case");
