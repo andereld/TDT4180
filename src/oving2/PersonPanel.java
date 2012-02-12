@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,6 +33,7 @@ public class PersonPanel extends JPanel implements ActionListener,
 	
 	public PersonPanel() {
 		setLayout(new GridBagLayout());
+		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		GridBagConstraints c = new GridBagConstraints();
 		
 		nameLabel = new JLabel("Name:");
@@ -60,7 +62,8 @@ public class PersonPanel extends JPanel implements ActionListener,
 		heightSlider = new JSlider(120, 220);
 		heightSlider.setName("HeightPropertyComponent");
 		heightSlider.addChangeListener(this);
-		heightSlider.setMajorTickSpacing(10);
+		heightSlider.setMajorTickSpacing(20);
+		heightSlider.setMinorTickSpacing(10);
 		heightSlider.setPaintTicks(true);
 		heightSlider.setPaintLabels(true);
 		
