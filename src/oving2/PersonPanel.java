@@ -113,6 +113,8 @@ public class PersonPanel extends JPanel implements ActionListener,
 		JFrame frame = new JFrame("MMI - Exercise 2");
 		frame.getContentPane().add(new PersonPanel());
 		frame.pack();
+		frame.setLocation(100, 100);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
 	
