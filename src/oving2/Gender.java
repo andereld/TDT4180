@@ -1,4 +1,4 @@
-package ov2;
+package oving2;
 
 public enum Gender {
 	male,

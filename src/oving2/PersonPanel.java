@@ -1,4 +1,4 @@
-package ov2;
+package oving2;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

@@ -1,4 +1,4 @@
-package ov2;
+package oving2;
 
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
@@ -9,6 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+
+import oving2.Gender;
+import oving2.Person;
+import oving2.PersonPanel;
 
 import junit.extensions.jfcunit.JFCTestCase;
 import junit.extensions.jfcunit.JFCTestHelper;
