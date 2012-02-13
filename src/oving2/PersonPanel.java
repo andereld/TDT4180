@@ -34,7 +34,6 @@ public class PersonPanel extends JPanel implements ActionListener,
 	public PersonPanel() {
 		setLayout(new GridBagLayout());
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		GridBagConstraints c = new GridBagConstraints();
 		
 		nameLabel = new JLabel("Name:");
 		nameField = new JTextField(40);
@@ -66,6 +65,8 @@ public class PersonPanel extends JPanel implements ActionListener,
 		heightSlider.setMinorTickSpacing(10);
 		heightSlider.setPaintTicks(true);
 		heightSlider.setPaintLabels(true);
+		
+		GridBagConstraints c = new GridBagConstraints();
 		
 		c.gridx = 0;
 		c.gridy = 0;
