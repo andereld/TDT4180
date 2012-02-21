@@ -2,10 +2,8 @@ package oving3;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.beans.PropertyChangeEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -16,9 +14,6 @@ public class PassivePersonPanel extends PersonPanel {
 	private JTextField heightField;
 	
 	public PassivePersonPanel() {
-		setLayout(new GridBagLayout());
-		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		
 		// the exercise says to subclass PersonPanel, so...
 		for (Component comp : getComponents())
 			if (comp instanceof JSlider || comp instanceof JComboBox)
