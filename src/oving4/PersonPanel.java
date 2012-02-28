@@ -17,7 +17,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class PersonPanel extends JPanel implements ActionListener,
-ChangeListener, PropertyChangeListener {
+        ChangeListener, PropertyChangeListener {
 
     protected JLabel nameLabel;
     protected JTextField nameField;
