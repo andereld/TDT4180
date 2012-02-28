@@ -1,13 +1,14 @@
-package oving2;
+package oving4;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -16,20 +17,20 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class PersonPanel extends JPanel implements ActionListener,
-		ChangeListener {
+		ChangeListener, PropertyChangeListener {
 	
-	private JLabel nameLabel;
-	private JTextField nameField;
-	private JLabel emailLabel;
-	private JTextField emailField;
-	private JLabel dateOfBirthLabel;
-	private JTextField dateOfBirthField;
-	private JLabel genderLabel;
-	private JComboBox genderSelection;
-	private JLabel heightLabel;
-	private JSlider heightSlider;
+	protected JLabel nameLabel;
+	protected JTextField nameField;
+	protected JLabel emailLabel;
+	protected JTextField emailField;
+	protected JLabel dateOfBirthLabel;
+	protected JTextField dateOfBirthField;
+	protected JLabel genderLabel;
+	protected JComboBox genderSelection;
+	protected JLabel heightLabel;
+	protected JSlider heightSlider;
 	
-	private Person model = null;
+	protected Person model = null;
 	
 	public PersonPanel() {
 		setLayout(new GridBagLayout());
@@ -51,11 +52,9 @@ public class PersonPanel extends JPanel implements ActionListener,
 		dateOfBirthField.addActionListener(this);
 		
 		genderLabel = new JLabel("Gender:");
-		genderSelection = new JComboBox();
+		genderSelection = new JComboBox(Gender.values());
 		genderSelection.setName("GenderPropertyComponent");
 		genderSelection.addActionListener(this);
-		genderSelection.addItem(Gender.male); 
-		genderSelection.addItem(Gender.female); 
 		
 		heightLabel = new JLabel("Height:");
 		heightSlider = new JSlider(120, 220);
@@ -65,62 +64,50 @@ public class PersonPanel extends JPanel implements ActionListener,
 		heightSlider.setMinorTickSpacing(10);
 		heightSlider.setPaintTicks(true);
 		heightSlider.setPaintLabels(true);
-	
+		
 		GridBagConstraints c = new GridBagConstraints();
 		
+		c.anchor = GridBagConstraints.WEST;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.anchor = GridBagConstraints.WEST;
 		add(nameLabel, c);
+		c.gridx = 0;
+		c.gridy = 1;
+		add(emailLabel, c);
+		c.gridx = 0;
+		c.gridy = 2;
+		add(dateOfBirthLabel, c);
+		c.gridx = 0;
+		c.gridy = 3;
+		add(genderLabel, c);
+		c.gridx = 0;
+		c.gridy = 4;
+		add(heightLabel, c);
+		
+		c.anchor = GridBagConstraints.EAST;
 		c.gridx = 1;
 		c.gridy = 0;
-		c.anchor = GridBagConstraints.EAST;
 		add(nameField, c);
-		c.gridx = 0;
-		c.gridy = 1;
-		c.anchor = GridBagConstraints.WEST;
-		add(emailLabel, c);
 		c.gridx = 1;
 		c.gridy = 1;
-		c.anchor = GridBagConstraints.EAST;
 		add(emailField, c);
-		c.gridx = 0;
-		c.gridy = 2;
-		c.anchor = GridBagConstraints.WEST;
-		add(dateOfBirthLabel, c);
 		c.gridx = 1;
 		c.gridy = 2;
-		c.anchor = GridBagConstraints.EAST;
 		add(dateOfBirthField, c);
-		c.gridx = 0;
-		c.gridy = 3;
-		c.anchor = GridBagConstraints.WEST;
-		add(genderLabel, c);
 		c.gridx = 1;
 		c.gridy = 3;
-		c.anchor = GridBagConstraints.EAST;
 		add(genderSelection, c);
-		c.gridx = 0;
-		c.gridy = 4;
-		c.anchor = GridBagConstraints.WEST;
-		add(heightLabel, c);
 		c.gridx = 1;
 		c.gridy = 4;
-		c.anchor = GridBagConstraints.EAST;
 		add(heightSlider, c);
-	}
-
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("MMI - Exercise 2");
-		frame.getContentPane().add(new PersonPanel());
-		frame.pack();
-		frame.setLocation(100, 100);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
 	}
 	
 	public void setModel(Person person) {
+	    if (person == null)
+	        return;
+	    
 		model = person;
+		model.addPropertyChangeListener(this);
 		
 		nameField.setText(model.getName());
 		emailField.setText(model.getEmail());
@@ -153,5 +140,26 @@ public class PersonPanel extends JPanel implements ActionListener,
 		
 		if (e.getSource() == heightSlider)
 			model.setHeight(heightSlider.getValue());
+	}
+
+	public void propertyChange(PropertyChangeEvent e) {
+		if (e.getPropertyName() == Person.NAME_PROPERTY) 
+			nameField.setText(model.getName());
+		else if (e.getPropertyName() == Person.EMAIL_PROPERTY)
+			emailField.setText(model.getEmail());
+		else if (e.getPropertyName() == Person.DATE_OF_BIRTH_PROPERTY)
+			dateOfBirthField.setText(model.getDateOfBirth());
+		else if (e.getPropertyName() == Person.GENDER_PROPERTY)
+			genderSelection.setSelectedItem(model.getGender());
+		else if (e.getPropertyName() == Person.HEIGHT_PROPERTY)
+			heightSlider.setValue(model.getHeight());
+	}
+	
+	public void clearFields() {
+	    nameField.setText("");
+	    emailField.setText("");
+	    dateOfBirthField.setText("");
+	    genderSelection.setSelectedItem(null);
+	    heightSlider.setValue(0);
 	}
 }
