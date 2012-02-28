@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
 public class PersonListPanel extends JPanel implements ListSelectionListener {
     
     private JList list;
+    private JScrollPane listPane;
     private DefaultListModel listModel;
     private PersonPanel personPanel;
     private JButton newPersonButton;
@@ -29,11 +31,15 @@ public class PersonListPanel extends JPanel implements ListSelectionListener {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
+        listModel = new DefaultListModel();
         list = new JList();
         list.setName("PersonList");
+        list.setModel(listModel);
         list.setBorder(BorderFactory.createLineBorder(Color.black));
         list.setCellRenderer(new PersonRenderer());
         list.addListSelectionListener(this);
+        
+        listPane = new JScrollPane(list);
         
         personPanel = new PersonPanel();
         personPanel.setName("PersonPanel");
@@ -64,15 +70,22 @@ public class PersonListPanel extends JPanel implements ListSelectionListener {
         label.setIcon(new ImageIcon("/img/male.png"));
         add(label);
         
-        add(list);
+        add(listPane);
         add(personPanel);
         add(buttonPanel);
     }
     
     public static void main(String[] args) {
         PersonListPanel panel = new PersonListPanel();
-        DefaultListModel model = new DefaultListModel();
-        model.addElement(new Person("Foo Bar"));
+        DefaultListModel model = (DefaultListModel) panel.getModel();
+        
+        Person person = new Person("Foo Bar");
+        person.setEmail("foo@bar.org");
+        person.setDateOfBirth("1970-01-01");
+        person.setGender(Gender.male);
+        person.setHeight(180);
+        
+        model.addElement(person);
         model.addElement(new Person("Baz Quux"));
         model.addElement(new Person("Corge Grault"));
         panel.setModel(model);
