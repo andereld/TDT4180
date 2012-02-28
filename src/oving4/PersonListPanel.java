@@ -1,6 +1,5 @@
 package oving4;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,14 +27,13 @@ public class PersonListPanel extends JPanel implements ListSelectionListener {
     private JButton deletePersonButton;
 
     public PersonListPanel() {
-        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
         listModel = new DefaultListModel();
         list = new JList();
         list.setName("PersonList");
         list.setModel(listModel);
-        list.setBorder(BorderFactory.createLineBorder(Color.black));
         list.setCellRenderer(new PersonRenderer());
         list.addListSelectionListener(this);
         
@@ -61,17 +59,17 @@ public class PersonListPanel extends JPanel implements ListSelectionListener {
             }
         });
         
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.LINE_AXIS));
+        mainPanel.add(listPane);
+        mainPanel.add(personPanel);
+        
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
         buttonPanel.add(newPersonButton);
         buttonPanel.add(deletePersonButton);
         
-        JLabel label = new JLabel();
-        label.setIcon(new ImageIcon("/img/male.png"));
-        add(label);
-        
-        add(listPane);
-        add(personPanel);
+        add(mainPanel);
         add(buttonPanel);
     }
     
